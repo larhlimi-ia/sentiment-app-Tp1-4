@@ -82,3 +82,18 @@ def test_modele_en_panne_repond_500(client_demarre, monkeypatch, erreur):
     assert reponse.status_code == 500
     assert "bug interne" not in reponse.text, "le message interne a fuité vers le client"
 
+
+def test_classes_inconnues_l_api_refuse_de_demarrer(monkeypatch):
+    """E.3 : un modèle réentraîné sur d'autres étiquettes est refusé au démarrage."""
+    from fastapi.testclient import TestClient
+
+    import api.model as module_api
+    from api.main import app
+
+    class ModeleEtranger:
+        classes_ = ["neg", "pos"]
+
+    monkeypatch.setattr(module_api, "charger_modele", lambda: ModeleEtranger())
+    with pytest.raises(ValueError, match="classes inconnues"):
+        with TestClient(app):
+            pass

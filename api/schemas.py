@@ -1,5 +1,10 @@
 """Contrats d'entrée et de sortie de l'API (Pydantic v2)."""
+from typing import Literal
+
 from pydantic import BaseModel, Field, field_validator
+
+# Les trois seules valeurs que l'API peut renvoyer (TP4) : le contrat, écrit dans un type
+Label = Literal["POSITIVE", "NEGATIVE", "INDETERMINE"]
 
 
 class PredictRequest(BaseModel):
@@ -18,7 +23,7 @@ class PredictRequest(BaseModel):
 
 class PredictResponse(BaseModel):
     """Réponse de prédiction."""
-    label: str = Field(..., description="POSITIVE ou NEGATIVE")
+    label: Label = Field(..., description="POSITIVE, NEGATIVE, ou INDETERMINE sous le seuil d'abstention")
     score: float = Field(..., ge=0, le=1, description="Confiance de la classe prédite")
     text: str = Field(..., description="Aperçu du texte analysé (100 caractères)")
 

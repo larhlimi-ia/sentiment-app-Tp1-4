@@ -8,10 +8,18 @@ Usage :
 import sys
 from functools import lru_cache
 from pathlib import Path
+from typing import TypedDict
 
 import joblib
 
 MODELE = Path(__file__).resolve().parents[1] / "models" / "sentiment.joblib"
+
+
+class Resultat(TypedDict):
+    """Ce que predict() renvoie : un type précis, que mypy peut suivre (TP4, étape E)."""
+
+    label: str
+    score: float
 
 
 @lru_cache(maxsize=1)
@@ -22,14 +30,14 @@ def charger_modele():
     return joblib.load(MODELE)
 
 
-def predict(texte: str) -> dict:
+def predict(texte: str) -> Resultat:
     """Renvoie {'label': 'positive'|'negative', 'score': float}."""
     if not isinstance(texte, str) or not texte.strip():
         raise ValueError("texte vide")
     pipeline = charger_modele()
     etiquette = pipeline.predict([texte])[0]
     score = float(pipeline.predict_proba([texte]).max())
-    return {"label": etiquette, "score": round(score, 4)}
+    return {"label": str(etiquette), "score": round(score, 4)}
 
 
 def main() -> int:
