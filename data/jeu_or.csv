@@ -1,1 +1,11 @@
 text,attendu,difficulte,erreur_connue
+"Colis arrivé en avance, article parfait, je recommande",POSITIVE,,
+"Emballage soigné, je suis très satisfait",POSITIVE,,
+"Commande jamais reçue, vendeur injoignable",NEGATIVE,,
+"Article reçu cassé, aucune réponse du vendeur",NEGATIVE,,
+"Livraison en retard de deux semaines, très déçu",NEGATIVE,,
+"Service client réactif et aimable, merci",POSITIVE,,"réactif, aimable et merci sont hors du vocabulaire : seul service client compte, vu surtout dans des avis négatifs"
+"Pas mal du tout, je suis agréablement surpris",POSITIVE,négation,
+"Génial, encore un colis perdu, merci pour rien",NEGATIVE,ironie,
+"Le produit est bien mais la livraison a été catastrophique",NEGATIVE,mitigé,
+"Le scénario est captivant et les acteurs excellents",POSITIVE,autre domaine,
